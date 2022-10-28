@@ -1,5 +1,5 @@
 ## Final Project Dasar Pemrogramman
-Disini kita kelompok 6 akan membuat Final Project menggunakan Python dengan Tema CRUD (Create Read Update Delete) Sederhana. Untuk dipresentasikan nanti UAS.
+Disini kita kelompok 6 akan membuat Final Project menggunakan Python dengan Tema CRUD (Create Read Update Delete) Sederhana. Untuk dipresentasikan nanti ketika UAS.
 
 -----
 
