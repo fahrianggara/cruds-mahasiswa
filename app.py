@@ -1,1 +1,4 @@
-# Menjalankan function disini
+# Membuat variable type list
+mahasiswa = [] 
+
+# while True:
