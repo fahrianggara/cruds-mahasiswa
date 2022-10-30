@@ -2,7 +2,7 @@
 Disini kita kelompok 6 akan membuat Final Project menggunakan Python. Untuk dipresentasikan nanti ketika UAS.
 
 ## Tema Project
-Tema project kelompok 6 adalah membuat CRUD yaitu Create Read Update dan Delete. dan CRUD-nya adalah data mahasiswa yang isinya adalah:
+Tema project kelompok 6 adalah membuat CRUDS yaitu Create, Read, Update, Delete dan Search. dan CRUDS-nya adalah data mahasiswa yang isinya adalah:
 - Nama
 - NIM
 - Jurusan
