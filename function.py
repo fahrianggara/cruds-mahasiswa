@@ -2,15 +2,93 @@
 
 # Mengambil package tabulate untuk membuat table
 from tabulate import tabulate 
+import csv
+
+file_data = 'data.csv'
 
 # Membuat variable
 namaProjek = "CRUD Mahasiswa"
 data_mahasiswa = [] # Type List
 
-# Function back to menu ini berfungsi untuk konfirmasi
+# Function back to menu ini berfungsi untuk konfirmasi dan kembali ke menu
 def backToMenu():
-    input("\nTekan Enter untuk kembali ke Menu")
+    input("\nSilahkan Tekan ENTER untuk kembali ke Menu")
     main()
+
+def createMahasiswa():
+    print('---------------------------------------')
+    print("Membuat data mahasiswa")
+    print('---------------------------------------')
+    with open(file_data, mode='a', newline='') as file:
+        fieldnames = ['Nama','NIM','Jurusan','Prodi','Kelas']
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+
+        nama = input("Masukkan nama mahasiswa: ")
+        nim = int(input("Masukkan nim mahasiswa: "))
+        jurusan = input("Masukkan jurusan mahasiswa: ")
+        prodi = input("Masukkan program studi mahasiswa: ")
+        kelas = input("Masukkan kelas mahasiswa: ").upper()
+
+        writer.writerow({
+            'Nama': nama,
+            'NIM' : nim,
+            'Jurusan' : jurusan,
+            'Prodi' : prodi,
+            'Kelas' : kelas
+        })
+
+        print('---------------------------------------')
+        print(">> Data mahasiswa berhasil disimpan! <<")
+        print('---------------------------------------')
+
+    backToMenu()
+    
+
+def showMahasiswa():
+    mahasiswaData = []
+    tbody = []
+    thead = ['Nama', 'NIM', 'Jurusan', 'Prodi', 'Kelas']
+
+    print('---------------------------------------')
+    print("Data Mahasiswa")
+    print('---------------------------------------')
+
+    with open(file_data) as file:
+        csv_reader = csv.reader(file, delimiter=",")
+        for row in csv_reader:
+            mahasiswaData.append(row)
+
+        if (len(mahasiswaData) > 0):
+            for data in mahasiswaData:
+                tbody.append(data)
+            
+            print(
+                tabulate(
+                    tbody,
+                    headers=thead,
+                    tablefmt='grid',
+                    showindex=range(1, len(tbody) + 1)
+                )
+            )
+        else:
+            print(">> Data mahasiswa belum ada! <<")
+            print('---------------------------------------')
+
+
+    backToMenu()
+
+def exitMenu():
+    print('---------------------------------------')
+    pilihan = input("Apakah kamu yakin akan keluar dari menu? [Y/T]: ").upper()
+
+    if pilihan == 'Y':
+        exit()
+    else:
+        print()
+        print(">> Kamu batal Keluar dari Menu! <<")
+        print('---------------------------------------')
+
+        backToMenu()    
 
 # Function Main atau Menu
 def main(): 
@@ -35,27 +113,24 @@ def main():
     )
 
     print('---------------------------------------')
-    menu = int(input("Silahkan pilih Kode Menunya: "))
-    print('---------------------------------------\n')
+    menu = int(input("Pilih Kode Menunya: "))
+    print('---------------------------------------')
 
     if menu == 0:
-        pilihan = input("Apakah kamu yakin akan keluar dari menu? [Y/T]: ").upper()
-
-        if pilihan == 'Y':
-            exit()
-        else:
-            print("Kamu tidak jadi keluar dari menu!")
-            backToMenu()
-            
+        exitMenu()
     elif menu == 1:
-        print("Kamu Memilih Menu:", menu)
+        showMahasiswa()
     elif menu == 2:
         print("Kamu Memilih Menu:", menu)
     elif menu == 3:
-        print("Kamu Memilih Menu:", menu)
+        createMahasiswa()
     elif menu == 4:
         print("Kamu Memilih Menu:", menu)
     elif menu == 5:
         print("Kamu Memilih Menu:", menu)
     else:
-        print("Oops! Menu tersebut tidak terdaftar!")
+        print('---------------------------------------')
+        print(">> Oops, Menu tersebut tidak terdafar! <<")
+        print('---------------------------------------')
+
+        backToMenu()  
