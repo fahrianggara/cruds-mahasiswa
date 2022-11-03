@@ -1,7 +1,5 @@
 <p align="center"><a href="https://bsi.ac.id" target="_blank"><img src="https://pbs.twimg.com/media/DpNiWO7UcAUQKEq.png" width="200"></a></p>
-<h2 align="center">Universitas Bina Sarana Informatika</h2>
-
-<br/>
+<p align="center" style="font-size:30px;">Universitas Bina Sarana Informatika</p>
 
 ## Final Project Dasar Pemrogramman
 Disini kita kelompok 6 akan membuat Final Project menggunakan Python. Untuk dipresentasikan nanti ketika UAS.
