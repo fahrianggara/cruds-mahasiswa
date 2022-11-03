@@ -53,6 +53,30 @@ def exitMenu():
 
         backToMenu() # panggil function back to menu
 
+# function data is empty, jadi function ini berfungsi jika datanya tidak ada.
+def dataIsEmpty():
+    # membuat pilihan tidak atau ya
+    pilihan = input("\nDuuh.. Data mahasiswanya masih kosong nih.. Kamu mau buat? [Y/T]: ").upper()
+
+    if pilihan == 'Y': # jika user pilih Y, maka lempar ke function create mahasiswa
+        createMahasiswa()
+    elif pilihan == 'T': # jika user pilih T, maka balik lagi ke menu
+        clearScreen() # membersihkan terminal
+        
+        print('---------------------------------------')
+        print(">> OK, Kamu batal membuat data baru! <<")
+        print('---------------------------------------')
+
+        backToMenu()
+    else: # jika user tidak milih y atau t, maka dari ulang terus sampe dia memilih y atau t
+        clearScreen() # membersihkan terminal
+        
+        print('-- ALERT ------------------------------')
+        print(">> Silahkan pilih Tidak [T] atau Ya [Y] <<")
+        print('---------------------------------------')
+
+        dataIsEmpty()
+
 # Function Main atau Menu
 def main():
     clearScreen() # panggil function clearscreen
@@ -114,34 +138,32 @@ def showMahasiswa():
     mahasiswa = [] # membuat var type list
     tbody = [] # membuat var type list
 
-    # Cetak judul functionnya
-    print('---------------------------------------')
-    print("Data Mahasiswa")
-    print('---------------------------------------')
-
+    """
+    a. with ini adalah pernyataan untuk membuka file, jadi with ini seperti try/finally untuk pernyataan
+    kesalahan yang digunakan.
+    b. open() adalah function yang dibuat untuk membuka file yg digunakan untuk membaca atau memodifikasi
+    file yg dipilih. didalam function ada paramater(suatu nilai untuk dikirimkan ke dalam fungsi), 
+    yaitu var file data yg isinya file csvnya.
+    c. as ini adalah alias, jadi function open tadi dimasukkan var alias file
+    """
     with open(fileData) as file:
-        """
-        with ini adalah pernyataan untuk membuka file, jadi with ini seperti try/finally untuk pernyataan
-        kesalahan yang digunakan.
-
-        open() adalah function yang dibuat untuk membuka file yg digunakan untuk membaca atau memodifikasi
-        file yg dipilih. didalam function ada paramater(suatu nilai untuk dikirimkan ke dalam fungsi), 
-        yaitu var file data yg isinya file csvnya
-
-        dan as ini adalah alias, jadi function open tadi dimasukkan var alias file
-        """
-
-        fileReader = csv.reader(file, delimiter=",")
         '''
         function reader dalam csv ini adalah untuk membaca file dari file csvnya
         dan param pertama itu adalah file csvnya, kedua delimiter yaitu pembatas untuk memisahkan string teks
         '''
+        fileReader = csv.reader(file, delimiter=",")
+        
         # loop dari var file reader
         for row in fileReader:
             mahasiswa.append(row) # var row yg isinya adalah file csv dimasukkan ke dalam var mahasiswa
 
         # Pengecekan
         if len(mahasiswa) > 0: # Jika ada datanya
+            # Cetak judul functionnya
+            print('---------------------------------------')
+            print("Data Mahasiswa")
+            print('---------------------------------------')
+
             '''
             pop ini berfungsi mengapus list dari urutan yg kamu pilih, pop ini dimulai dari urutan 0
             berarti kita akan menghapus judul tablenya
@@ -161,8 +183,11 @@ def showMahasiswa():
                 )
             )
         else: # Jika tidak ada datanya
+            print('---------------------------------------')
             print(">> Data mahasiswa belum ada! <<")
             print('---------------------------------------')
+            
+            dataIsEmpty() # lempar ke function data is empty
 
     backToMenu() # panggil function back to menu
 
@@ -173,21 +198,18 @@ def searchMahasiswa():
     mahasiswa = [] # var type list
 
     """
-    - with ini adalah pernyataan untuk membuka file, jadi with ini seperti try/finally untuk pernyataan
+    -- with ini adalah pernyataan untuk membuka file, jadi with ini seperti try/finally untuk pernyataan
     kesalahan yang digunakan.
-
-    - open() adalah function yang dibuat untuk membuka file yg digunakan untuk membaca atau memodifikasi
+    -- open() adalah function yang dibuat untuk membuka file yg digunakan untuk membaca atau memodifikasi
     file yg dipilih. didalam function ada paramater(suatu nilai untuk dikirimkan ke dalam fungsi), 
     param pertama file data yaitu file csvnya, dan yang kedua ada mode='r' yaitu (read) cuma membaca aja tidak bisa di edit,
-
-    dan as ini adalah alias, jadi function open tadi dimasukkan var alias file
+    -- as ini adalah alias, jadi function open tadi dimasukkan var alias file
     """
     with open(fileData, mode='r') as file:
         """
-        csv (Comma Separated Values) adalah format impor dan ekspor yang paling umum untuk database.
+        -- csv (Comma Separated Values) adalah format impor dan ekspor yang paling umum untuk database.
         yaa ini seperti non database, tidak seperti sql dan lain2.
-
-        DictReader ini adalah function untuk membaca data dari function csv yg diambil dari file csv.
+        -- DictReader ini adalah function untuk membaca data dari function csv yg diambil dari file csv.
         nah didalam function, ada paramnya, yaitu file yg berisi dari file csv nya
         """
         fileReader = csv.DictReader(file)
@@ -195,41 +217,75 @@ def searchMahasiswa():
         for row in fileReader:
             mahasiswa.append(row) # var row yg isinya adalah file csv dimasukkan ke dalam var mahasiswa
 
-    nim = input("Cari mahasiswa berdasarkan NIM: ") # inputan data NIM
-    dataFound = [] # ini berfungsi jika data ada maka akan dimasukkan ke var data found
-
-    i = 0 # index adalah 0
-    for data in mahasiswa: # loop
-        if data['NIM'] == nim: # jika ada data nim yg sama seperti inputan nim
-            dataFound = mahasiswa[i] # i ini adalah index. data mahasiswa yg berindex dimasukkan ke var data found yg typenya list
-        i = i + 1 # berfungsi untuk meloop sampai dia ketemu data nim nya yg sama seperti inputan nim
-
-    if len(dataFound) > 0: # Jika data ditemukan
-        # cetak hasil
+    if len(mahasiswa) > 0:
         print('---------------------------------------')
-        print(f"Data Mahasiswa dengan NIM {nim} Ditemukan!")
+        print("Mencari data mahasiswa")
         print('---------------------------------------')
-        print(
-            tabulate( # memanggil function tabulate dari file tabulate untuk membuat table
-                [
-                    ['Nama', 'NIM', 'Jurusan', 'Prodi', 'Kelas'], # firstrow(header table)
-                    [   # data yang dicari
-                        dataFound['Nama'],
-                        dataFound['NIM'],
-                        dataFound['Jurusan'],
-                        dataFound['Prodi'],
-                        dataFound['Kelas']
-                    ]
-                ],
-                headers='firstrow', # header diambil firstrow
-                tablefmt='grid', # style tablenya
+
+        print('---------------------------------------')
+        nim = input("Cari mahasiswa berdasarkan NIM: ") # inputan data NIM
+        print('---------------------------------------')
+        dataFound = [] # ini berfungsi jika data ada maka akan dimasukkan ke var data found
+
+        i = 0 # index adalah 0
+        for data in mahasiswa: # loop
+            if nim.isdigit(): # kondisi, jika inputan adalah digit.
+                if data['NIM'] == nim: # jika data sesuai dengan input nim
+                    dataFound = mahasiswa[i] # i ini adalah index. data mahasiswa yg berindex dimasukkan ke var data found yg typenya list
+            else: # jika inputan bukan digit, maka kasih pesan.
+                clearScreen() # membersihkan layar terminal
+
+                print('-- WARNING ----------------------------')
+                input(
+                    f"Inputan NIM harus menggunakan Angka!\n" + 
+                    "---------------------------------------\n" +
+                    "\n>> Tekan ENTER untuk Mengulangi <<"
+                )
+                print('---------------------------------------')
+
+                searchMahasiswa() # ulangi lagi
+
+            
+            i = i + 1 # berfungsi untuk meloop sampai dia ketemu data nim nya yg sama seperti inputan nim
+
+        if len(dataFound) > 0: # Jika data ditemukan
+            clearScreen() # membersihkan layar
+
+            # cetak hasil
+            print('---------------------------------------')
+            print(f"Data Mahasiswa dengan NIM {nim} Ditemukan!")
+            print('---------------------------------------')
+            print(
+                tabulate( # memanggil function tabulate dari file tabulate untuk membuat table
+                    [
+                        ['Nama', 'NIM', 'Jurusan', 'Prodi', 'Kelas'], # firstrow(header table)
+                        [   # data yang dicari
+                            dataFound['Nama'],
+                            dataFound['NIM'],
+                            dataFound['Jurusan'],
+                            dataFound['Prodi'],
+                            dataFound['Kelas']
+                        ]
+                    ],
+                    headers='firstrow', # header diambil firstrow
+                    tablefmt='grid', # style tablenya
+                )
             )
-        )
+        else: # jika tidak ada datanya
+            clearScreen()
+
+            print('-- ALERT ------------------------------')
+            print("Data yang kamu cari Tidak Ditemukan!")
+            print('---------------------------------------')
+
+        backToMenu() # panggil function back to menu
+
     else: # jika tidak ada datanya
-        print(">> Data tidak ditemukan! <<")
+        print('---------------------------------------')
+        print(">> Data mahasiswa belum ada! <<")
         print('---------------------------------------')
 
-    backToMenu() # panggil function back to menu
+        dataIsEmpty() # lempar ke function data is empty
 
 # function create mahasiswa, function ini untuk membuat data mahasiswa baru
 def createMahasiswa():
@@ -238,21 +294,18 @@ def createMahasiswa():
     mahasiswa = [] # membuat var type list agar nanti dimasukkan data dari file csvnya
 
     """
-    - with ini adalah pernyataan untuk membuka file, jadi with ini seperti try/finally untuk pernyataan
+    -- with ini adalah pernyataan untuk membuka file, jadi with ini seperti try/finally untuk pernyataan
     kesalahan yang digunakan.
-
-    - open() adalah function yang dibuat untuk membuka file yg digunakan untuk membaca atau memodifikasi
+    -- open() adalah function yang dibuat untuk membuka file yg digunakan untuk membaca atau memodifikasi
     file yg dipilih. didalam function ada paramater(suatu nilai untuk dikirimkan ke dalam fungsi), 
     param pertama file data yaitu file csvnya, dan yang kedua ada mode='r' yaitu (read) cuma membaca aja tidak bisa di edit,
-
-    dan as ini adalah alias, jadi function open tadi dimasukkan var alias file
+    -- as ini adalah alias, jadi function open tadi dimasukkan var alias file
     """
     with open(fileData, mode='r') as file:
         """
-        csv (Comma Separated Values) adalah format impor dan ekspor yang paling umum untuk database.
+        -- csv (Comma Separated Values) adalah format impor dan ekspor yang paling umum untuk database.
         yaa ini seperti non database, tidak seperti sql dan lain2.
-
-        DictReader ini adalah function untuk membaca data dari function csv yg diambil dari file csv.
+        -- DictReader ini adalah function untuk membaca data dari function csv yg diambil dari file csv.
         nah didalam function, ada paramnya, yaitu file yg berisi dari file csv nya
         """
         csvReader = csv.DictReader(file)
@@ -260,25 +313,24 @@ def createMahasiswa():
             mahasiswa.append(row) # var row yg isinya adalah file csv dimasukkan ke dalam var mahasiswa
 
     """
-    - with ini adalah pernyataan untuk membuka file, jadi with ini seperti try/finally untuk pernyataan
+    -- with ini adalah pernyataan untuk membuka file, jadi with ini seperti try/finally untuk pernyataan
     kesalahan yang digunakan.
 
-    - open() adalah function yang dibuat untuk membuka file yg digunakan untuk membaca atau memodifikasi
+    -- open() adalah function yang dibuat untuk membuka file yg digunakan untuk membaca atau memodifikasi
     file yg dipilih. didalam function ada paramater(suatu nilai untuk dikirimkan ke dalam fungsi), 
     param pertama file data yaitu file csvnya, dan yang kedua ada mode='a' yaitu (append) Membuat file baru jika tidak ada, 
     seperti function append() mengisi data urutan terakhir
     dan ketiga newline, jadi ketika kita sudah membuat data baru maka data tersebut langsung ke bawah (newline "\n")
 
-    dan as ini adalah alias, jadi function open tadi dimasukkan var alias file
+    -- as ini adalah alias, jadi function open tadi dimasukkan var alias file
     """
     with open(fileData, mode='a', newline='') as file:
         fieldnames = ['Nama', 'NIM', 'Jurusan', 'Prodi', 'Kelas'] # judul header yg dimasukkan ke var fieldnames
 
         """
-        csv (Comma Separated Values) adalah format impor dan ekspor yang paling umum untuk database.
+        -- csv (Comma Separated Values) adalah format impor dan ekspor yang paling umum untuk database.
         yaa ini seperti non database, tidak seperti sql dan lain2.
-
-        DictWriter ini adalah function untuk membuat/menulis(writer) data dari function csv yg diambil dari file csv.
+        -- DictWriter ini adalah function untuk membuat/menulis(writer) data dari function csv yg diambil dari file csv.
         nah didalam function ada paramnya, yg pertama: file yaitu file csv nya dan yg
         kedua fieldnames yaitu judul dari fieldnya/isinya
         """
@@ -310,6 +362,8 @@ def createMahasiswa():
             if nim.isdigit():
                 # validasi, jika nimnya sudah ada(unique)
                 if data['NIM'] == nim:
+                    clearScreen() # membersihkan layar terminal
+                    
                     print('\n-- WARNING ----------------------------')
                     input(
                         f"NIM Mahasiswa tersebut sudah ada!\n" + 
@@ -320,6 +374,8 @@ def createMahasiswa():
 
                     createMahasiswa() # lempar ke function create mahasiswa
             else: # jika nimnya bukanlah angka
+                clearScreen() # membersihkan layar terminal
+
                 print('\n-- WARNING ----------------------------')
                 input(
                     f"Inputan NIM harus menggunakan Angka!\n" + 
@@ -332,6 +388,8 @@ def createMahasiswa():
         
         # jika user ketik batal maka batal isi form
         if nim == '0':
+            clearScreen()
+
             print('\n-- ALERT ------------------------------')
             print("Kamu Batal Mengisi Form!")
             print('---------------------------------------')
@@ -357,8 +415,10 @@ def createMahasiswa():
             'Kelas': kelas
         })
 
+        clearScreen() # membersihkan terminal
+
         # cetak message kalo udah disimpan
-        print('-- ALERT ------------------------------')
+        print('---------------------------------------')
         print(">> Data Mahasiswa berhasil disimpan! <<")
         print('---------------------------------------')
 
@@ -367,11 +427,6 @@ def createMahasiswa():
 # function edit mahasiswa, function ini digunakan untuk mengedit data mahasiswa.
 def editMahasiswa():
     clearScreen() # membersihkan terminal, jadi fokus ke edit mahasiswa
-
-    # Cetak title untuk function edit mahasiswa
-    print('---------------------------------------')
-    print("Mengedit data mahasiswa")
-    print('---------------------------------------')
 
     # membuat variable type list
     mahasiswa = []
@@ -384,116 +439,138 @@ def editMahasiswa():
         for row in csvReader:
             mahasiswa.append(row) # data yg di csv dimasukkan ke var mahasiswa
 
-    for data in mahasiswa: # melooping lagi data dari var mahasiswa
-        # datanya mahasiswa dengan setiap key, dimasukkan ke var column
-        column = data['Nama'], data['NIM'], data['Jurusan'], data['Prodi'], data['Kelas']
-        tbody.append(column) # var column dimasukkan ke dalam var tbody
+    # Kondisi, jika datanya ada
+    if len(mahasiswa) > 0:
+        # Cetak title untuk function edit mahasiswa
+        print('---------------------------------------')
+        print("Mengedit data mahasiswa")
+        print('---------------------------------------')
 
-    print(
-        # cetak list data mahasiswa dengan membuat table dari tabulate
-        tabulate(
-            tbody, # isi table
-            headers=['Nama', 'NIM', 'Jurusan', 'Prodi', 'Kelas'], # headers
-            tablefmt='grid', # style tablenya
-            showindex=range(1, len(mahasiswa) + 1) # kasih nomernya
+        for data in mahasiswa: # melooping lagi data dari var mahasiswa
+            # datanya mahasiswa dengan setiap key, dimasukkan ke var column
+            column = data['Nama'], data['NIM'], data['Jurusan'], data['Prodi'], data['Kelas']
+            tbody.append(column) # var column dimasukkan ke dalam var tbody
+
+        print(
+            # cetak list data mahasiswa dengan membuat table dari tabulate
+            tabulate(
+                tbody, # isi table
+                headers=['Nama', 'NIM', 'Jurusan', 'Prodi', 'Kelas'], # headers
+                tablefmt='grid', # style tablenya
+                showindex=range(1, len(mahasiswa) + 1) # kasih nomernya
+            )
         )
-    )
 
-    print('---------------------------------------')
-    nim = input("Pilih NIM Mahasiswa: ")
-    print('---------------------------------------')
+        print('---------------------------------------')
+        nim = input("Pilih NIM Mahasiswa: ")
+        print('---------------------------------------')
 
-    i = 0
-    for data in mahasiswa: # looping
-        if nim.isdigit(): # kondisi, jika inputan adalah digit.
-            if data['NIM'] == nim: # jika data sesuai dengan input nim
-                dataFound = mahasiswa[i]
-        else: # jika inputan bukan digit, maka kasih pesan.
+        clearScreen() # membersihkan layar terminal
+
+        print('---------------------------------------')
+        print(f'Kamu sedang mengedit data dengan NIM "{nim}"')
+        print('---------------------------------------')
+
+        i = 0
+        for data in mahasiswa: # looping
+            if nim.isdigit(): # kondisi, jika inputan adalah digit.
+                if data['NIM'] == nim: # jika data sesuai dengan input nim
+                    dataFound = mahasiswa[i]
+            else: # jika inputan bukan digit, maka kasih pesan.
+                print('\n-- WARNING ----------------------------')
+                input(
+                    f"Inputan NIM harus menggunakan Angka!\n" + 
+                    "---------------------------------------\n" +
+                    "\n>> Tekan ENTER untuk Mengulangi <<"
+                )
+                print('---------------------------------------')
+
+                editMahasiswa() # lempar ke function edit mahasiswa
+            i = i + 1 # mengulang terus sampe ketemu sesuai nim yg dicari
+
+        # kondisi, Jika data tidak ada, maka harus ngulang lagi
+        if not len(dataFound) > 0:
             print('\n-- WARNING ----------------------------')
             input(
-                f"Inputan NIM harus menggunakan Angka!\n" + 
+                f"NIM Tidak ditemukan\n" + 
                 "---------------------------------------\n" +
                 "\n>> Tekan ENTER untuk Mengulangi <<"
             )
             print('---------------------------------------')
 
             editMahasiswa() # lempar ke function edit mahasiswa
-        i = i + 1 # mengulang terus sampe ketemu sesuai nim yg dicari
 
-    # kondisi, Jika data tidak ada, maka harus ngulang lagi
-    if not len(dataFound) > 0:
-        print('\n-- WARNING ----------------------------')
-        input(
-            f"NIM Tidak ditemukan\n" + 
-            "---------------------------------------\n" +
-            "\n>> Tekan ENTER untuk Mengulangi <<"
-        )
+        print('-- FORM -------------------------------')
+        # Membuat var type input, untuk mengganti data baru
+        nama = input("Masukkan Nama baru Mahasiswa: ")
+        jurusan = input("Masukkan Jurusan baru Mahasiswa: ")
+        prodi = input("Masukkan Program Studi baru Mahasiswa: ")
+        kelas = input("Masukkan Kelas baru Mahasiswa: ").upper()
+        print('---------------------------------------')
+            
+        i = 0
+        for data in mahasiswa: # looping
+            if data['NIM'] == nim: # jika data nim sama seperti input var nim
+                # Proses mengedit data lama jadi data yg baru
+                # [i] adalah index, si doi ini akan terus mencari datanya sampe ketemu sama nim yg diinputkan
+                # setelah [i] adalah keynya atau header tablenya
+                # --------------------------------------
+                if len(nama) == 0: # jika inputan kosong, maka biarkan saja
+                    mahasiswa[i]['Nama']
+                else: # jika ada, maka replace data lama jadi baru
+                    mahasiswa[i]['Nama'] = nama
+                # --------------------------------------
+                if len(jurusan) == 0: # jika inputan kosong, maka biarkan saja
+                    mahasiswa[i]['Jurusan']
+                else: # jika ada, maka replace data lama jadi baru
+                    mahasiswa[i]['Jurusan'] = jurusan
+                # --------------------------------------
+                if len(prodi) == 0: # jika inputan kosong, maka biarkan saja
+                    mahasiswa[i]['Prodi']
+                else: # jika ada, maka replace data lama jadi baru
+                    mahasiswa[i]['Prodi'] = prodi
+                # --------------------------------------
+                if len(kelas) == 0: # jika inputan kosong, maka biarkan saja
+                    mahasiswa[i]['Kelas']
+                else: # jika ada, maka replace data lama jadi baru
+                    mahasiswa[i]['Kelas'] = kelas
+                # --------------------------------------
+            i = i + 1 # mengulang terus sampe ketemu sesuai nim yg dicari
+
+        """Proses masukkan data ke file csv
+        Pertama membuka filenya csv dulu dengan function open() yg paramnya berisi:
+        1. file csv-nya
+        2. modenya, mode w berarti writing, jadi ketika data ada maka hapus data lama, sebaliknya jika tidak ada data maka buat baru.
+        3. newline(baris baru), berarti ketika file sudah di update maka otomatis ke baris yg baru(kebawah), 
+        """
+        with open(fileData, mode='w', newline='') as csvFile:
+            fieldnames = ['Nama', 'NIM', 'Jurusan', 'Prodi', 'Kelas'] # key atau judul
+            writer = csv.DictWriter(csvFile, fieldnames=fieldnames) # membuat var writer dengan berfungsi untuk membuat/menulis(writer) data file csv.
+            writer.writeheader() # membuat/menulis header
+            for newData in mahasiswa: # loop data mahasiswa lalu dimasukkan ke var newdata
+                writer.writerow({
+                    # disinilah insert data ke file csvnya, yg pertama ada key-nya, lalu diisi dengan data isinya
+                    'Nama': newData['Nama'],
+                    'NIM': newData['NIM'],
+                    'Jurusan': newData['Jurusan'],
+                    'Prodi': newData['Prodi'],
+                    'Kelas': newData['Kelas']
+                })
+
+        clearScreen() # membersihkan layar terminal
+
+        # cetak pesan jika data sudah disimpan
+        print('---------------------------------------')
+        print(">> Data baru dari NIM", nim, "Berhasil diperbarui! <<")
         print('---------------------------------------')
 
-        editMahasiswa() # lempar ke function edit mahasiswa
-    
-    print('-- FORM -------------------------------')
-    # Membuat var type input, untuk mengganti data baru
-    nama = input("Masukkan Nama baru Mahasiswa: ")
-    jurusan = input("Masukkan Jurusan baru Mahasiswa: ")
-    prodi = input("Masukkan Program Studi baru Mahasiswa: ")
-    kelas = input("Masukkan Kelas baru Mahasiswa: ").upper()
-    print('---------------------------------------')
-        
-    i = 0
-    for data in mahasiswa: # looping
-        if data['NIM'] == nim: # jika data nim sama seperti input var nim
-            # Proses mengedit data lama jadi data yg baru
-            # [i] adalah index, si doi ini akan terus mencari datanya sampe ketemu sama nim yg diinputkan
-            # setelah [i] adalah keynya atau header tablenya
-            # --------------------------------------
-            if len(nama) == 0: # jika inputan kosong, maka biarkan saja
-                mahasiswa[i]['Nama']
-            else: # jika ada, maka replace data lama jadi baru
-                mahasiswa[i]['Nama'] = nama
-            # --------------------------------------
-            if len(jurusan) == 0: # jika inputan kosong, maka biarkan saja
-                mahasiswa[i]['Jurusan']
-            else: # jika ada, maka replace data lama jadi baru
-                mahasiswa[i]['Jurusan'] = jurusan
-            # --------------------------------------
-            if len(prodi) == 0: # jika inputan kosong, maka biarkan saja
-                mahasiswa[i]['Prodi']
-            else: # jika ada, maka replace data lama jadi baru
-                mahasiswa[i]['Prodi'] = prodi
-            # --------------------------------------
-            if len(kelas) == 0: # jika inputan kosong, maka biarkan saja
-                mahasiswa[i]['Kelas']
-            else: # jika ada, maka replace data lama jadi baru
-                mahasiswa[i]['Kelas'] = kelas
-            # --------------------------------------
-        i = i + 1 # mengulang terus sampe ketemu sesuai nim yg dicari
+        backToMenu() # lempar ke back to menu
+    else: # jika datanya ada
+        print('---------------------------------------')
+        print(">> Data mahasiswa belum ada! <<")
+        print('---------------------------------------')
 
-    """Proses masukkan data ke file csv
-    Pertama membuka filenya csv dulu dengan function open() yg paramnya berisi:
-    1. file csv-nya
-    2. modenya, mode w berarti writing, jadi ketika data ada maka hapus data lama, sebaliknya jika tidak ada data maka buat baru.
-    3. newline(baris baru), berarti ketika file sudah di update maka otomatis ke baris yg baru(kebawah), 
-    """
-    with open(fileData, mode='w', newline='') as csvFile:
-        fieldnames = ['Nama', 'NIM', 'Jurusan', 'Prodi', 'Kelas'] # key atau judul
-        writer = csv.DictWriter(csvFile, fieldnames=fieldnames) # membuat var writer dengan berfungsi untuk membuat/menulis(writer) data file csv.
-        writer.writeheader() # membuat/menulis header
-        for newData in mahasiswa: # loop data mahasiswa lalu dimasukkan ke var newdata
-            writer.writerow({
-                # disinilah insert data ke file csvnya, yg pertama ada key-nya, lalu diisi dengan data isinya
-                'Nama': newData['Nama'],
-                'NIM': newData['NIM'],
-                'Jurusan': newData['Jurusan'],
-                'Prodi': newData['Prodi'],
-                'Kelas': newData['Kelas']
-            })
-    # cetak pesan jika data sudah disimpan
-    print('---------------------------------------')
-    print(">> Data baru dari NIM", nim, "Berhasil diperbarui! <<")
-    print('---------------------------------------')
-
-    backToMenu() # lempar ke back to menu
+        dataIsEmpty() # lempar ke function data is empty
 
 def deleteMahasiswa():
     clearScreen() # panggil function clearscreen
@@ -506,11 +583,11 @@ def deleteMahasiswa():
         for row in csvReader:
             mahasiswa.append(row)
 
-    print('---------------------------------------')
-    print("Menghapus data mahasiswa")
-    print('---------------------------------------')
-
     if len(mahasiswa) > 0:
+        print('---------------------------------------')
+        print("Menghapus data mahasiswa")
+        print('---------------------------------------')
+
         for data in mahasiswa:
             column = data['Nama'], data['NIM'], data['Jurusan'], data['Prodi'], data['Kelas']
             tbody.append(column)
@@ -552,7 +629,10 @@ def deleteMahasiswa():
         print(">> DATA BERHASIL DIHAPUS <<")
         print('---------------------------------------')
     else:
-        print(">> Data tidak ditemukan! <<")
         print('---------------------------------------')
+        print(">> Data mahasiswa belum ada! <<")
+        print('---------------------------------------')
+
+        dataIsEmpty()
 
     backToMenu() # panggil function back to menu
