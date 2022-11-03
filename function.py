@@ -25,33 +25,58 @@ nanti ada pilihannya jika y berarti tambah, jika t berarti engga, kembali ke men
 '''
 def confCreateAgain():
     print('-- ALERT ------------------------------')
-    confirm = input("Apakah kamu mau tambah data lagi? [Y/T]: ").upper()
+    pilihan = input("Apakah kamu mau tambah data lagi? [Y/T]: ").upper()
     print('---------------------------------------')
 
-    if confirm == 'Y': # jika user meng iyakan
-        createMahasiswa() # lempar ke function create mahasiswa
-    else: # jika tidak atau lainnya
-        backToMenu() # panggil function back to menu
+    if pilihan == 'Y': # jika user pilih Y, maka lempar ke function create mahasiswa
+        createMahasiswa()
+    elif pilihan == 'T': # jika user pilih T, maka balik lagi ke menu
+        clearScreen() # membersihkan layar terminal
+        
+        print('---------------------------------------')
+        print(">> OK, Kamu batal membuat data lagi! <<")
+        print('---------------------------------------')
+
+        backToMenu() # lempar ke back to menu
+    else: # jika user tidak milih y atau t, maka dari ulang terus sampe dia memilih y atau t
+        clearScreen() # membersihkan layar terminal
+        
+        print('-- ALERT ------------------------------')
+        print(">> Silahkan pilih Tidak [T] atau Ya [Y] <<")
+        print('---------------------------------------')
+
+        confCreateAgain() # ulang lagi sampe pilihan T atau Y
 
 # Function exit menu, function ini digunakan untuk keluar dari menu
 def exitMenu():
-    clearScreen() # panggil function clearscreen
 
     # membuat input lalu dimasukkan ke dalam var pilihan, dan value inputnya nanti di uppercase(kapital)
     pilihan = input("Apakah kamu yakin akan keluar dari menu? [Y/T]: ").upper()
 
-    if pilihan == 'Y': # ketika user pilih Y maka keluar dari menunya dan loopingnya diberentikan
+    if pilihan == 'Y': # jika user pilih Y, maka looping-nya berenti
+        clearScreen() # membersihkan layar terminal
+
         exit( # function adalah berguna untuk keluar dari looping, sama halnya break
-            '\n---------------------------------------\n' +
+            '---------------------------------------\n' +
             '>> Kamu telah keluar dari Menu! <<\n' +
             '---------------------------------------'
         )
-    else: # jika user pilihan selain dari y maka lanjut melooping lagi
-        print('\n---------------------------------------')
+    elif pilihan == 'T': # jika user pilih T, maka balik lagi ke menu
+        clearScreen() # membersihkan layar terminal
+
+        print('---------------------------------------')
         print(">> Kamu batal Keluar dari Menu! <<")
         print('---------------------------------------')
 
         backToMenu() # panggil function back to menu
+    else: # jika user tidak milih y atau t, maka dari ulang terus sampe dia memilih y atau t
+        clearScreen() # membersihkan layar terminal
+        
+        print('-- ALERT ------------------------------')
+        print(">> Silahkan pilih Tidak [T] atau Ya [Y] <<")
+        print('---------------------------------------')
+
+        exitMenu()
 
 # function data is empty, jadi function ini berfungsi jika datanya tidak ada.
 def dataIsEmpty():
@@ -61,7 +86,7 @@ def dataIsEmpty():
     if pilihan == 'Y': # jika user pilih Y, maka lempar ke function create mahasiswa
         createMahasiswa()
     elif pilihan == 'T': # jika user pilih T, maka balik lagi ke menu
-        clearScreen() # membersihkan terminal
+        clearScreen() # membersihkan layar terminal
         
         print('---------------------------------------')
         print(">> OK, Kamu batal membuat data baru! <<")
@@ -69,7 +94,7 @@ def dataIsEmpty():
 
         backToMenu()
     else: # jika user tidak milih y atau t, maka dari ulang terus sampe dia memilih y atau t
-        clearScreen() # membersihkan terminal
+        clearScreen() # membersihkan layar terminal
         
         print('-- ALERT ------------------------------')
         print(">> Silahkan pilih Tidak [T] atau Ya [Y] <<")
@@ -112,6 +137,8 @@ def main():
     panggil functionnya sesuai dengan dilist diatas
     """
     if menu == 0: # jika menu 0 maka panggil function exitMenu
+        clearScreen() # membersihkan layar terminal
+
         exitMenu() 
     elif menu == 1: # jika menu 1 maka panggil function showMahasiswa
         showMahasiswa()
@@ -139,12 +166,12 @@ def showMahasiswa():
     tbody = [] # membuat var type list
 
     """
-    a. with ini adalah pernyataan untuk membuka file, jadi with ini seperti try/finally untuk pernyataan
+    -- with ini adalah pernyataan untuk membuka file, jadi with ini seperti try/finally untuk pernyataan
     kesalahan yang digunakan.
-    b. open() adalah function yang dibuat untuk membuka file yg digunakan untuk membaca atau memodifikasi
+    -- open() adalah function yang dibuat untuk membuka file yg digunakan untuk membaca atau memodifikasi
     file yg dipilih. didalam function ada paramater(suatu nilai untuk dikirimkan ke dalam fungsi), 
     yaitu var file data yg isinya file csvnya.
-    c. as ini adalah alias, jadi function open tadi dimasukkan var alias file
+    -- as ini adalah alias, jadi function open tadi dimasukkan var alias file
     """
     with open(fileData) as file:
         '''
@@ -315,13 +342,11 @@ def createMahasiswa():
     """
     -- with ini adalah pernyataan untuk membuka file, jadi with ini seperti try/finally untuk pernyataan
     kesalahan yang digunakan.
-
     -- open() adalah function yang dibuat untuk membuka file yg digunakan untuk membaca atau memodifikasi
     file yg dipilih. didalam function ada paramater(suatu nilai untuk dikirimkan ke dalam fungsi), 
     param pertama file data yaitu file csvnya, dan yang kedua ada mode='a' yaitu (append) Membuat file baru jika tidak ada, 
     seperti function append() mengisi data urutan terakhir
     dan ketiga newline, jadi ketika kita sudah membuat data baru maka data tersebut langsung ke bawah (newline "\n")
-
     -- as ini adalah alias, jadi function open tadi dimasukkan var alias file
     """
     with open(fileData, mode='a', newline='') as file:
@@ -363,7 +388,7 @@ def createMahasiswa():
                 # validasi, jika nimnya sudah ada(unique)
                 if data['NIM'] == nim:
                     clearScreen() # membersihkan layar terminal
-                    
+
                     print('\n-- WARNING ----------------------------')
                     input(
                         f"NIM Mahasiswa tersebut sudah ada!\n" + 
@@ -415,7 +440,7 @@ def createMahasiswa():
             'Kelas': kelas
         })
 
-        clearScreen() # membersihkan terminal
+        clearScreen() # membersihkan layar terminal
 
         # cetak message kalo udah disimpan
         print('---------------------------------------')
@@ -426,7 +451,7 @@ def createMahasiswa():
 
 # function edit mahasiswa, function ini digunakan untuk mengedit data mahasiswa.
 def editMahasiswa():
-    clearScreen() # membersihkan terminal, jadi fokus ke edit mahasiswa
+    clearScreen() # membersihkan layar terminal, jadi fokus ke edit mahasiswa
 
     # membuat variable type list
     mahasiswa = []
