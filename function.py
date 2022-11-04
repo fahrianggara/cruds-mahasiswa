@@ -82,7 +82,7 @@ def dataIsEmpty():
         clearScreen() 
         
         print('-- INFO -------------------------------')
-        print("OK, Kamu batal membuat data baru! <<")
+        print("OK, Kamu batal membuat data baru!")
         print('---------------------------------------')
 
         backToMenu()
