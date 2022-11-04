@@ -6,19 +6,33 @@
 Disini kita kelompok 6 akan membuat Final Project menggunakan Python. Untuk dipresentasikan nanti ketika UAS.
 
 ## Tema Project
-Tema project kelompok 6 adalah membuat CRUDS yaitu Create, Read, Update, Delete dan Search. dan CRUDS-nya adalah data mahasiswa yang isinya adalah:
+Tema project kelompok 6 adalah membuat CRUDS yaitu Create, Read, Update, Delete dan Search. dan CRUDS-nya adalah data mahasiswa yang isinya yaitu:
+
 - Nama
 - NIM
 - Jurusan
 - Prodi
 - Kelas
 
-Jadi ada 5 data yang harus diinputkan nanti.
+Jadi ada 5 data yang harus diinputkan nanti. Dan primary key-nya nanti yaitu menggunakan Inputan NIM.
+
+## Syntax yang digunakan pada Project
+Syntax yang digunakan pada Project Ini itu cukup lumayan banyak, yaitu:
+- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ipsum dolor sit amet consectetur adipiscing. Bibendum neque egestas congue quisque egestas. Odio ut enim blandit volutpat maecenas volutpat blandit. 
 
 ## Anggota Kelompok 6
-1. Fahri Anggara (Ketua)
-2. Dimas Yusuf Hidayat
-3. Fakhri Amal Fadillah
-4. Sultan Jordy
-5. Ilham Ramadhan
-6. Romanus Mendrofa
+1. Fahri Anggara (Ketua) - 10220009
+2. Dimas Yusuf Hidayat - 10220014
+3. Fakhri Akmal Fadillah - 10220046
+4. Sultan Jordy Priadi - 10220078
+5. Ilham Ramadan - 10220048
+6. Romanus Mendrofa - 10220083
+
+## Screenshot Project
+![Halaman Menu](https://raw.githubusercontent.com/fahrianggara/project-python/main/assets/img/halaman-menu.png)
+![Halaman Show Mahasiswa](https://raw.githubusercontent.com/fahrianggara/project-python/main/assets/img/halaman-show.png)
+![Halaman Search Mahasiswa](https://raw.githubusercontent.com/fahrianggara/project-python/main/assets/img/halaman-search.png)
+![Halaman Create Mahasiswa](https://raw.githubusercontent.com/fahrianggara/project-python/main/assets/img/halaman-create.png)
+![Halaman Edit Mahasiswa](https://raw.githubusercontent.com/fahrianggara/project-python/main/assets/img/halaman-edit.png)
+![Halaman Delete Mahasiswa](https://raw.githubusercontent.com/fahrianggara/project-python/main/assets/img/halaman-delete.png)
+
