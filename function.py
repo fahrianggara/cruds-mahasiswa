@@ -12,7 +12,7 @@ def clearScreen():
 
 
 def backToMenu():
-    input("\nSilahkan Tekan ENTER untuk kembali ke Menu")
+    input("\n>> Tekan ENTER untuk Kembali ke Menu <<")
     main() 
 
 
@@ -322,7 +322,7 @@ def createMahasiswa():
             print('---------------------------------------')
 
             createMahasiswa() 
-            
+
         elif len(nim) < 8:
             clearScreen() 
 
