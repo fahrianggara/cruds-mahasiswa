@@ -309,6 +309,28 @@ def createMahasiswa():
                 print('---------------------------------------')
 
                 createMahasiswa() 
+        
+        if not nim.isdigit():
+            clearScreen() 
+
+            print('-- WARNING ----------------------------')
+            input(
+                f"Inputan NIM harus menggunakan Angka!\n" + 
+                "---------------------------------------\n" +
+                "\n>> Tekan ENTER untuk Mengulangi <<"
+            )
+            print('---------------------------------------')
+
+            createMahasiswa() 
+
+        if nim == '0':
+            clearScreen()
+
+            print('\n-- ALERT ------------------------------')
+            print("Kamu Batal Mengisi Form!")
+            print('---------------------------------------')
+
+            backToMenu() 
 
         if len(nim) > 8:
             clearScreen() 
@@ -335,28 +357,6 @@ def createMahasiswa():
             print('---------------------------------------')
 
             createMahasiswa() 
-
-        if not nim.isdigit():
-            clearScreen() 
-
-            print('-- WARNING ----------------------------')
-            input(
-                f"Inputan NIM harus menggunakan Angka!\n" + 
-                "---------------------------------------\n" +
-                "\n>> Tekan ENTER untuk Mengulangi <<"
-            )
-            print('---------------------------------------')
-
-            createMahasiswa() 
-        
-        if nim == '0':
-            clearScreen()
-
-            print('\n-- ALERT ------------------------------')
-            print("Kamu Batal Mengisi Form!")
-            print('---------------------------------------')
-
-            backToMenu() 
         
         nama = input("Masukkan Nama Mahasiswa: ")
         jurusan = input("Masukkan Jurusan Mahasiswa: ")
