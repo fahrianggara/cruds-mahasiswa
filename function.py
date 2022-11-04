@@ -26,8 +26,8 @@ def confCreateAgain():
     elif pilihan == 'T': 
         clearScreen() 
         
-        print('---------------------------------------')
-        print(">> OK, Kamu batal membuat data lagi! <<")
+        print('-- INFO -------------------------------')
+        print("OK, Kamu batal membuat data lagi!")
         print('---------------------------------------')
 
         backToMenu() 
@@ -35,7 +35,7 @@ def confCreateAgain():
         clearScreen() 
         
         print('-- ALERT ------------------------------')
-        print(">> Silahkan pilih Tidak [T] atau Ya [Y] <<")
+        print("Silahkan pilih Tidak [T] atau Ya [Y]")
         print('---------------------------------------')
 
         confCreateAgain() 
@@ -50,15 +50,15 @@ def exitMenu():
         clearScreen() 
 
         exit( 
-            '---------------------------------------\n' +
-            '>> Kamu telah keluar dari Menu! <<\n' +
+            '-- INFO -------------------------------\n' +
+            'Kamu telah keluar dari Menu!\n' +
             '---------------------------------------'
         )
     elif pilihan == 'T': 
         clearScreen() 
 
-        print('---------------------------------------')
-        print(">> Kamu batal Keluar dari Menu! <<")
+        print('-- INFO -------------------------------')
+        print("Kamu batal Keluar dari Menu!")
         print('---------------------------------------')
 
         backToMenu() 
@@ -66,7 +66,7 @@ def exitMenu():
         clearScreen() 
         
         print('-- ALERT ------------------------------')
-        print(">> Silahkan pilih Tidak [T] atau Ya [Y] <<")
+        print("Silahkan pilih Tidak [T] atau Ya [Y]")
         print('---------------------------------------')
 
         exitMenu()
@@ -74,15 +74,15 @@ def exitMenu():
 
 def dataIsEmpty():
     
-    pilihan = input("\nDuuh.. Data mahasiswanya masih kosong nih.. Kamu mau buat? [Y/T]: ").upper()
+    pilihan = input("\nHmm.. Data mahasiswa masih kosong nih. Buat? [Y/T]: ").upper()
 
     if pilihan == 'Y': 
         createMahasiswa()
     elif pilihan == 'T': 
         clearScreen() 
         
-        print('---------------------------------------')
-        print(">> OK, Kamu batal membuat data baru! <<")
+        print('-- INFO -------------------------------')
+        print("OK, Kamu batal membuat data baru! <<")
         print('---------------------------------------')
 
         backToMenu()
@@ -90,7 +90,7 @@ def dataIsEmpty():
         clearScreen() 
         
         print('-- ALERT ------------------------------')
-        print(">> Silahkan pilih Tidak [T] atau Ya [Y] <<")
+        print("Silahkan pilih Tidak [T] atau Ya [Y]")
         print('---------------------------------------')
 
         dataIsEmpty()
@@ -140,7 +140,7 @@ def main():
         clearScreen()
 
         print('-- ALERT ------------------------------')
-        print("Oops.. Menu Tersebut Tidak Ada!")
+        print("Menu Tersebut Tidak Ada!")
         print('---------------------------------------')
 
         backToMenu() 
@@ -178,8 +178,8 @@ def showMahasiswa():
                 )
             )
         else: 
-            print('---------------------------------------')
-            print(">> Data mahasiswa belum ada! <<")
+            print('-- ALERT ------------------------------')
+            print("Data Mahasiswa Belum Ada!")
             print('---------------------------------------')
             
             dataIsEmpty() 
@@ -209,29 +209,28 @@ def searchMahasiswa():
         dataFound = [] 
 
         i = 0 
-        for data in mahasiswa: 
-            if nim.isdigit(): 
-                if data['NIM'] == nim: 
-                    dataFound = mahasiswa[i] 
-            else: 
-                clearScreen() 
-
-                print('-- WARNING ----------------------------')
-                input(
-                    f"Inputan NIM harus menggunakan Angka!\n" + 
-                    "---------------------------------------\n" +
-                    "\n>> Tekan ENTER untuk Mengulangi <<"
-                )
-                print('---------------------------------------')
-
-                searchMahasiswa() 
-
+        for data in mahasiswa:
+            if data['NIM'] == nim: 
+                dataFound = mahasiswa[i] 
             i = i + 1 
+        
+        if not nim.isdigit(): 
+            clearScreen() 
+
+            print('-- WARNING ----------------------------')
+            input(
+                f"Inputan NIM harus menggunakan Angka!\n" + 
+                "---------------------------------------\n" +
+                "\n>> Tekan ENTER untuk Mengulangi <<"
+            )
+            print('---------------------------------------')
+
+            searchMahasiswa() 
 
         if len(dataFound) > 0: 
             clearScreen() 
 
-            print('---------------------------------------')
+            print('-- INFO -------------------------------')
             print(f"Data Mahasiswa dengan NIM {nim} Ditemukan!")
             print('---------------------------------------')
             print(
@@ -260,8 +259,8 @@ def searchMahasiswa():
         backToMenu() 
 
     else: 
-        print('---------------------------------------')
-        print(">> Data mahasiswa belum ada! <<")
+        print('-- ALERT ------------------------------')
+        print("Data Mahasiswa Belum Ada!")
         print('---------------------------------------')
 
         dataIsEmpty() 
@@ -298,31 +297,44 @@ def createMahasiswa():
         print("Masukkan NIM Mahasiswa:", nim)
 
         for data in mahasiswa:
-            if nim.isdigit():
-                if data['NIM'] == nim:
-                    clearScreen() 
-
-                    print('-- WARNING ----------------------------')
-                    input(
-                        f"NIM Mahasiswa tersebut sudah ada!\n" + 
-                        "---------------------------------------\n" +
-                        "\n>> Tekan ENTER untuk Mengulangi <<"
-                    )
-                    print('---------------------------------------')
-
-                    createMahasiswa() 
-            else: 
+            if data['NIM'] == nim:
                 clearScreen() 
 
                 print('-- WARNING ----------------------------')
                 input(
-                    f"Inputan NIM harus menggunakan Angka!\n" + 
+                    f"NIM Mahasiswa tersebut sudah ada!\n" + 
                     "---------------------------------------\n" +
                     "\n>> Tekan ENTER untuk Mengulangi <<"
                 )
                 print('---------------------------------------')
 
                 createMahasiswa() 
+
+        if len(nim) > 8:
+            clearScreen() 
+
+            print('-- WARNING ----------------------------')
+            input(
+                f"Inputan NIM harus 8 Digit!\n" + 
+                "---------------------------------------\n" +
+                "\n>> Tekan ENTER untuk Mengulangi <<"
+            )
+            print('---------------------------------------')
+
+            createMahasiswa() 
+            
+        elif len(nim) < 8:
+            clearScreen() 
+
+            print('-- WARNING ----------------------------')
+            input(
+                f"Inputan NIM harus 8 Digit!\n" + 
+                "---------------------------------------\n" +
+                "\n>> Tekan ENTER untuk Mengulangi <<"
+            )
+            print('---------------------------------------')
+
+            createMahasiswa() 
 
         if not nim.isdigit():
             clearScreen() 
@@ -378,8 +390,8 @@ def createMahasiswa():
 
         clearScreen() 
 
-        print('---------------------------------------')
-        print(">> Data Mahasiswa berhasil disimpan! <<")
+        print('-- INFO -------------------------------')
+        print("Data Mahasiswa berhasil disimpan!")
         print('---------------------------------------')
 
     confCreateAgain() 
@@ -404,12 +416,10 @@ def editMahasiswa():
         print('---------------------------------------')
 
         for data in mahasiswa: 
-            
             column = data['Nama'], data['NIM'], data['Jurusan'], data['Prodi'], data['Kelas']
             tbody.append(column) 
 
         print(
-            
             tabulate(
                 tbody, 
                 headers=['Nama', 'NIM', 'Jurusan', 'Prodi', 'Kelas'], 
@@ -424,29 +434,28 @@ def editMahasiswa():
 
         clearScreen() 
 
-        print('---------------------------------------')
-        print(f'Kamu sedang mengedit data dengan NIM "{nim}"')
+        print('-- INFO -------------------------------')
+        print(f'Kamu sedang mengedit Data dari NIM: {nim}')
         print('---------------------------------------')
 
         i = 0
         for data in mahasiswa: 
-            if nim.isdigit(): 
-                if data['NIM'] == nim: 
-                    dataFound = mahasiswa[i]
-            else: 
-                clearScreen() 
-
-                print('-- WARNING ----------------------------')
-                input(
-                    f"Inputan NIM harus menggunakan Angka!\n" + 
-                    "---------------------------------------\n" +
-                    "\n>> Tekan ENTER untuk Mengulangi <<"
-                )
-                print('---------------------------------------')
-
-                editMahasiswa() 
+            if data['NIM'] == nim: 
+                dataFound = mahasiswa[i]
             i = i + 1 
 
+        if not nim.isdigit(): 
+            clearScreen() 
+
+            print('-- WARNING ----------------------------')
+            input(
+                f"Inputan NIM harus menggunakan Angka!\n" + 
+                "---------------------------------------\n" +
+                "\n>> Tekan ENTER untuk Mengulangi <<"
+            )
+            print('---------------------------------------')
+
+            editMahasiswa() 
         
         if not len(dataFound) > 0:
             clearScreen() 
@@ -462,7 +471,7 @@ def editMahasiswa():
             editMahasiswa() 
 
         print('-- FORM -------------------------------')
-        
+        print("NOTE: Abaikan.. jika salah satu data tidak mau diperbarui!\n")
         nama = input("Masukkan Nama baru Mahasiswa: ")
         jurusan = input("Masukkan Jurusan baru Mahasiswa: ")
         prodi = input("Masukkan Program Studi baru Mahasiswa: ")
@@ -510,14 +519,14 @@ def editMahasiswa():
 
         clearScreen() 
 
-        print('---------------------------------------')
-        print(">> Data baru dari NIM", nim, "Berhasil diperbarui! <<")
+        print('-- INFO -------------------------------')
+        print("Data baru dari NIM", nim, "Berhasil diperbarui!")
         print('---------------------------------------')
 
         backToMenu() 
     else: 
-        print('---------------------------------------')
-        print(">> Data mahasiswa belum ada! <<")
+        print('-- ALERT ------------------------------')
+        print("Data Mahasiswa Belum Ada!")
         print('---------------------------------------')
 
         dataIsEmpty() 
@@ -575,12 +584,12 @@ def deleteMahasiswa():
                     'Kelas': newData['Kelas']
                 })
 
-        print('-- ALERT ------------------------------')
-        print(">> DATA BERHASIL DIHAPUS <<")
+        print('-- INFO -------------------------------')
+        print(f"Data dengan NIM {nim} berhasil dihapus!")
         print('---------------------------------------')
     else:
-        print('---------------------------------------')
-        print(">> Data mahasiswa belum ada! <<")
+        print('-- ALERT ------------------------------')
+        print("Data Mahasiswa Belum Ada!")
         print('---------------------------------------')
 
         dataIsEmpty()
