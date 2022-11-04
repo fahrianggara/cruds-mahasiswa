@@ -1,0 +1,4 @@
+# Mengabaikan folder __pycache__ dari git repository
+__pycache__/
+*.py[cod]
+*$py.class
