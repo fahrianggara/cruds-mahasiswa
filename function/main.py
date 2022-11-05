@@ -2,8 +2,8 @@
 
 # import package
 from tabulate import tabulate # mengambil function tabulate dari package tabulate untuk membuat table
-# mengambil semua function dari file action di folder function
-import function.action
+# mengambil semua function dari file action.py di folder function dan kasih aliasn action
+import function.action as action
 # import main
 from function.show import showMahasiswa # memanggil function showMahasiswa dari file show.py di folder function
 from function.search import searchMahasiswa # memanggil function searchMahasiswa dari file search.py di folder function
@@ -14,7 +14,7 @@ from function.delete import deleteMahasiswa # memanggil function deleteMahasiswa
 namaProjek = "CRUDS Mahasiswa"
 
 def main():
-    function.action.clearScreen() 
+    action.clearScreen() 
 
     print('---------------------------------------')
     print(f"List Menu | {namaProjek}")
@@ -41,8 +41,8 @@ def main():
     print('---------------------------------------')
 
     if menu == '0': 
-        function.action.clearScreen() 
-        function.action.exitMenu() 
+        action.clearScreen() 
+        action.exitMenu() 
     elif menu == '1': 
         showMahasiswa()
     elif menu == '2': 
@@ -54,10 +54,10 @@ def main():
     elif menu == '5': 
         deleteMahasiswa()
     else: 
-        function.action.clearScreen()
+        action.clearScreen()
 
         print('-- ALERT ------------------------------')
         print("Menu Tersebut Tidak Ada!")
         print('---------------------------------------')
 
-        function.action.backToMenu() 
+        action.backToMenu() 

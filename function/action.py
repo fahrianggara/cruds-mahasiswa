@@ -3,14 +3,14 @@
 # Import section
 import os # mengambil package os (operating system)
 from function.create import createMahasiswa # memanggil function createMahasiswa dari file create.py di folder function
-import function.main # memanggil function main dari file main.py di folder function
+import function.main as func # memanggil function main dari file main.py di folder function
 
 def clearScreen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def backToMenu():
     input("\n>> Tekan ENTER untuk Kembali ke Menu <<")
-    function.main.main() 
+    func.main() 
 
 def confCreateAgain():
     print('-- ALERT ------------------------------')

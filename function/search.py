@@ -1,13 +1,13 @@
 # ====== FILE INI UNTUK FUNCTION SEARCH MAHASISWA ====== #
 
 from tabulate import tabulate # mengambil function tabulate dari package tabulate untuk membuat table
-import function.action # mengambil semua function dari file action di folder function
+import function.action as action # mengambil semua function dari file action.py di folder function dan kasih aliasn action
 import csv # mengambil package csv (comma separated values)
 
 fileData = 'assets/data.csv'
 
 def searchMahasiswa():
-    function.action.clearScreen() 
+    action.clearScreen() 
 
     mahasiswa = [] 
 
@@ -35,7 +35,7 @@ def searchMahasiswa():
             i = i + 1 
         
         if not nim.isdigit(): 
-            function.action.clearScreen() 
+            action.clearScreen() 
 
             print('-- WARNING ----------------------------')
             input(
@@ -48,16 +48,16 @@ def searchMahasiswa():
             searchMahasiswa() 
         
         if nim == '0':
-            function.action.clearScreen()
+            action.clearScreen()
 
             print('\n-- ALERT ------------------------------')
             print("Kamu keluar dari pencarian!")
             print('---------------------------------------')
 
-            function.action.backToMenu() 
+            action.backToMenu() 
 
         if len(dataFound) > 0: 
-            function.action.clearScreen() 
+            action.clearScreen() 
 
             print('-- INFO -------------------------------')
             print(f"Data Mahasiswa dengan NIM {nim} Ditemukan!")
@@ -79,7 +79,7 @@ def searchMahasiswa():
                 )
             )
         else: 
-            function.action.clearScreen()
+            action.clearScreen()
 
             print('-- ALERT ------------------------------')
             input(
@@ -91,11 +91,11 @@ def searchMahasiswa():
 
             searchMahasiswa() # ulang lagi
 
-        function.action.backToMenu() 
+        action.backToMenu() 
 
     else: 
         print('-- ALERT ------------------------------')
         print("Data Mahasiswa Belum Ada!")
         print('---------------------------------------')
 
-        function.action.dataIsEmpty() 
+        action.dataIsEmpty() 

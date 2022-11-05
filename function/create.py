@@ -1,13 +1,13 @@
 # ====== FILE INI UNTUK FUNCTION CREATE MAHASISWA ====== #
 
 import csv # mengambil package csv (comma separated values)
-# mengambil semua function dari file action di folder function
-import function.action
+# mengambil semua function dari file action.py di folder function dan kasih aliasn action
+import function.action as action
 
 fileData = 'assets/data.csv'
 
 def createMahasiswa():
-    function.action.clearScreen() 
+    action.clearScreen() 
 
     mahasiswa = [] 
 
@@ -27,7 +27,7 @@ def createMahasiswa():
         print('-- FORM -------------------------------')
         nim = input('NOTE: ketik "0" untuk keluar dari form.\n\nMasukkan NIM Mahasiswa: ')
 
-        function.action.clearScreen() 
+        action.clearScreen() 
 
         print('---------------------------------------')
         print("Membuat Data Mahasiswa")
@@ -38,7 +38,7 @@ def createMahasiswa():
 
         for data in mahasiswa:
             if data['NIM'] == nim:
-                function.action.clearScreen() 
+                action.clearScreen() 
 
                 print('-- WARNING ----------------------------')
                 input(
@@ -51,7 +51,7 @@ def createMahasiswa():
                 createMahasiswa() 
         
         if not nim.isdigit():
-            function.action.clearScreen() 
+            action.clearScreen() 
 
             print('-- WARNING ----------------------------')
             input(
@@ -64,16 +64,16 @@ def createMahasiswa():
             createMahasiswa() 
 
         if nim == '0':
-            function.action.clearScreen()
+            action.clearScreen()
 
             print('\n-- ALERT ------------------------------')
             print("Kamu Batal Mengisi Form!")
             print('---------------------------------------')
 
-            function.action.backToMenu() 
+            action.backToMenu() 
 
         if len(nim) > 8:
-            function.action.clearScreen() 
+            action.clearScreen() 
 
             print('-- WARNING ----------------------------')
             input(
@@ -86,7 +86,7 @@ def createMahasiswa():
             createMahasiswa() 
 
         elif len(nim) < 8:
-            function.action.clearScreen() 
+            action.clearScreen() 
 
             print('-- WARNING ----------------------------')
             input(
@@ -105,7 +105,7 @@ def createMahasiswa():
         print('---------------------------------------')
 
         if len(nama) == 0 and len(jurusan) == 0 and len(prodi) == 0 and len(kelas) == 0:
-            function.action.clearScreen() 
+            action.clearScreen() 
 
             print('-- WARNING ----------------------------')
             input(
@@ -128,10 +128,10 @@ def createMahasiswa():
                 'Kelas': kelas
             })
 
-        function.action.clearScreen() 
+        action.clearScreen() 
 
         print('-- INFO -------------------------------')
         print("Data Mahasiswa berhasil disimpan!")
         print('---------------------------------------')
 
-    function.action.confCreateAgain() 
+    action.confCreateAgain() 

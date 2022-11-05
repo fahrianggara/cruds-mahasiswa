@@ -1,14 +1,14 @@
 # ====== FILE INI UNTUK FUNCTION SHOW MAHASISWA ====== #
 
 from tabulate import tabulate # mengambil function tabulate dari package tabulate untuk membuat table
-# mengambil semua function dari file action di folder function
-import function.action
+# mengambil semua function dari file action.py di folder function dan kasih aliasn action
+import function.action as action
 import csv # mengambil package csv (comma separated values)
 
 fileData = 'assets/data.csv'
 
 def showMahasiswa():
-    function.action.clearScreen() 
+    action.clearScreen() 
 
     mahasiswa = [] 
     tbody = [] 
@@ -43,6 +43,6 @@ def showMahasiswa():
             print("Data Mahasiswa Belum Ada!")
             print('---------------------------------------')
             
-            function.action.dataIsEmpty() 
+            action.dataIsEmpty() 
 
-    function.action.backToMenu() 
+    action.backToMenu() 

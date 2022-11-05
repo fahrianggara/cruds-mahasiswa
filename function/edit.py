@@ -1,14 +1,14 @@
 # ====== FILE INI UNTUK FUNCTION EDIT MAHASISWA ====== #
 
 from tabulate import tabulate # mengambil function tabulate dari package tabulate untuk membuat table
-# mengambil semua function dari file action di folder function
-import function.action
+# mengambil semua function dari file action.py di folder function dan kasih aliasn action
+import function.action as action
 import csv # mengambil package csv (comma separated values)
 
 fileData = 'assets/data.csv'
 
 def editMahasiswa():
-    function.action.clearScreen() 
+    action.clearScreen() 
 
     mahasiswa = []
     tbody = []
@@ -42,7 +42,7 @@ def editMahasiswa():
         nim = input("Pilih NIM Mahasiswa: ")
         print('---------------------------------------')
 
-        function.action.clearScreen() 
+        action.clearScreen() 
 
         print('-- INFO -------------------------------')
         print(f'Kamu sedang mengedit Data dari NIM: {nim}')
@@ -55,7 +55,7 @@ def editMahasiswa():
             i = i + 1 
 
         if not nim.isdigit(): 
-            function.action.clearScreen() 
+            action.clearScreen() 
 
             print('-- WARNING ----------------------------')
             input(
@@ -68,7 +68,7 @@ def editMahasiswa():
             editMahasiswa() 
         
         if not len(dataFound) > 0:
-            function.action.clearScreen() 
+            action.clearScreen() 
 
             print('-- WARNING ----------------------------')
             input(
@@ -127,16 +127,16 @@ def editMahasiswa():
                     'Kelas': newData['Kelas']
                 })
 
-        function.action.clearScreen() 
+        action.clearScreen() 
 
         print('-- INFO -------------------------------')
         print("Data baru dari NIM", nim, "Berhasil diperbarui!")
         print('---------------------------------------')
 
-        function.action.backToMenu() 
+        action.backToMenu() 
     else: 
         print('-- ALERT ------------------------------')
         print("Data Mahasiswa Belum Ada!")
         print('---------------------------------------')
 
-        function.action.dataIsEmpty() 
+        action.dataIsEmpty() 
