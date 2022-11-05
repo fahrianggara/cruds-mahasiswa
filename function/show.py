@@ -13,36 +13,33 @@ def showMahasiswa():
     mahasiswa = [] 
     tbody = [] 
 
-    with open(fileData) as file:
-        fileReader = csv.reader(file, delimiter=",")
-        
-        for row in fileReader:
-            mahasiswa.append(row) 
+    with open(fileData, mode='r') as csvFile:
+        csvReader = csv.DictReader(csvFile)
+        for row in csvReader:
+            mahasiswa.append(row)
 
-        if len(mahasiswa) > 0: 
-            
-            print('---------------------------------------')
-            print("List Data Mahasiswa")
-            print('---------------------------------------')
+    if len(mahasiswa) > 0:
+        print('---------------------------------------')
+        print("List Data Mahasiswa")
+        print('---------------------------------------')
 
-            thead = mahasiswa.pop(0)
+        for data in mahasiswa: 
+            column = data['Nama'], data['NIM'], data['Jurusan'], data['Prodi'], data['Kelas']
+            tbody.append(column)
 
-            for data in mahasiswa: 
-                tbody.append(data) 
-
-            print(
-                tabulate(
-                    tbody, 
-                    headers=thead, 
-                    tablefmt='grid', 
-                    showindex=range(1, len(tbody) + 1) 
-                )
+        print(
+            tabulate(
+                tbody, 
+                headers=['Nama', 'NIM', 'Jurusan', 'Prodi', 'Kelas'], 
+                tablefmt='grid', 
+                showindex=range(1, len(tbody) + 1) 
             )
-        else: 
-            print('-- ALERT ------------------------------')
-            print("Data Mahasiswa Belum Ada!")
-            print('---------------------------------------')
-            
-            action.dataIsEmpty() 
+        )
+    else: 
+        print('-- ALERT ------------------------------')
+        print("Data Mahasiswa Belum Ada!")
+        print('---------------------------------------')
+        
+        action.dataIsEmpty() 
 
     action.backToMenu() 
