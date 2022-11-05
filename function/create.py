@@ -9,12 +9,20 @@ fileData = 'assets/data.csv'
 def createMahasiswa():
     action.clearScreen() 
 
-    mahasiswa = [] 
+    mahasiswa = []
+    dataMahasiswa = []
 
-    with open(fileData, mode='r') as file:
-        csvReader = csv.DictReader(file)
+    # mengambil data tidak memakai key-nya
+    with open(fileData) as csv_file:
+        csvReader = csv.reader(csv_file, delimiter=",")
         for row in csvReader:
-            mahasiswa.append(row) 
+            mahasiswa.append(row)
+
+    # mengambil data memakai key-nya
+    with open(fileData, mode='r') as csv_file:
+        csvReader = csv.DictReader(csv_file)
+        for row in csvReader:
+            dataMahasiswa.append(row)
 
     with open(fileData, mode='a', newline='') as file:
         fieldnames = ['Nama', 'NIM', 'Jurusan', 'Prodi', 'Kelas'] 
@@ -36,7 +44,7 @@ def createMahasiswa():
         print('-- FORM -------------------------------')
         print("Masukkan NIM Mahasiswa:", nim)
 
-        for data in mahasiswa:
+        for data in dataMahasiswa:
             if data['NIM'] == nim:
                 action.clearScreen() 
 
@@ -117,16 +125,26 @@ def createMahasiswa():
 
             createMahasiswa() 
         else:
-            if mahasiswa == []: 
-                writer.writeheader() 
+            # Jika, datanya cuma header saja, maka buat datanya saja.
+            if len(mahasiswa) == 1:
+                writer.writerow({ 
+                    'Nama': nama,
+                    'NIM': nim,
+                    'Jurusan': jurusan,
+                    'Prodi': prodi,
+                    'Kelas': kelas
+                })
+            else: # jika data full kosong semua(baru)
+                if mahasiswa == []: # jika data full kosong buat header
+                    writer.writeheader()
 
-            writer.writerow({ 
-                'Nama': nama,
-                'NIM': nim,
-                'Jurusan': jurusan,
-                'Prodi': prodi,
-                'Kelas': kelas
-            })
+                writer.writerow({ 
+                    'Nama': nama,
+                    'NIM': nim,
+                    'Jurusan': jurusan,
+                    'Prodi': prodi,
+                    'Kelas': kelas
+                })
 
         action.clearScreen() 
 
