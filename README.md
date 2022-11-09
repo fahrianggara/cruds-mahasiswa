@@ -18,7 +18,7 @@ Jadi ada 5 data yang harus diinputkan nanti. Dan primary key-nya nanti yaitu men
 
 ## Syntax yang digunakan pada Project
 Syntax yang digunakan pada Project Ini itu cukup lumayan banyak, yaitu:
-- Lorem ipsum dolor sit amet
+- Lorem
 
 ## Anggota Kelompok 6
 1. Fahri Anggara (Ketua) - 10220009
