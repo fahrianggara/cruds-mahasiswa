@@ -1,17 +1,15 @@
-# ====== FILE INI UNTUK FUNCTION DELETE MAHASISWA ====== #
-
-from tabulate import tabulate # mengambil function tabulate dari package tabulate untuk membuat table
-# mengambil semua function dari file action.py di folder function dan kasih aliasn action
+from tabulate import tabulate
 import function.action as action
-import csv # mengambil package csv (comma separated values)
+import csv
 
 fileData = 'assets/data.csv'
 
 def deleteMahasiswa():
-    action.clearScreen() 
+    action.clearScreen()
 
     mahasiswa = []
     tbody = []
+    dataFound = []
 
     with open(fileData, mode='r') as csvFile:
         csvReader = csv.DictReader(csvFile)
@@ -30,38 +28,61 @@ def deleteMahasiswa():
         print(
             tabulate(
                 tbody,
-                headers=['Nama', 'NIM', 'Jurusan', 'Prodi', 'Kelas'],
+                headers=['Nama', 'NIM', 'Jurusan','Prodi', 'Kelas'],
                 tablefmt='grid',
                 showindex=range(1, len(mahasiswa) + 1)
             )
         )
 
         print('---------------------------------------')
-        nim = input("Pilih NIM untuk menghapus Data: ")
+        print("NOTE: Ketik 0 untuk keluar dari Form!\n")
+        nim = input("Pilih NIM untuk Menghapus Data: ")
         print('---------------------------------------')
 
         i = 0
         for data in mahasiswa:
             if data['NIM'] == nim:
-                mahasiswa.remove(mahasiswa[i])
+                dataFound = mahasiswa[i]
             i = i + 1
 
-        with open(fileData, mode='w', newline='') as csvFile:
-            fieldnames = ['Nama', 'NIM', 'Jurusan', 'Prodi', 'Kelas']
-            writer = csv.DictWriter(csvFile, fieldnames=fieldnames)
-            writer.writeheader()
-            for newData in mahasiswa:
-                writer.writerow({
-                    'Nama': newData['Nama'],
-                    'NIM': newData['NIM'],
-                    'Jurusan': newData['Jurusan'],
-                    'Prodi': newData['Prodi'],
-                    'Kelas': newData['Kelas']
-                })
+        if not nim.isdigit():
+            action.clearScreen()
 
-        print('-- INFO -------------------------------')
-        print(f"Data dengan NIM {nim} berhasil dihapus!")
-        print('---------------------------------------')
+            print('-- WARNING ----------------------------')
+            input(
+                f"Inputan NIM harus menggunakan Angka!\n" +
+                "---------------------------------------\n" +
+                "\n>> Tekan ENTER untuk Mengulangi <<"
+            )
+            print('---------------------------------------')
+
+            deleteMahasiswa()
+
+        if nim == '0':
+            action.clearScreen()
+
+            print('\n-- INFO -------------------------------')
+            print("Kamu Telah Keluar Dari Form Delete!")
+            print('---------------------------------------')
+
+            action.backToMenu()
+
+        if not len(dataFound) > 0:
+            action.clearScreen()
+
+            print('-- WARNING ----------------------------')
+            input(
+                f"NIM Tidak ditemukan\n" +
+                "---------------------------------------\n" +
+                "\n>> Tekan ENTER untuk Mengulangi <<"
+            )
+            print('---------------------------------------')
+
+            deleteMahasiswa()
+
+        action.clearScreen()
+
+        action.deleteData(mahasiswa, nim, fileData)
     else:
         print('-- ALERT ------------------------------')
         print("Data Mahasiswa Belum Ada!")
@@ -69,4 +90,4 @@ def deleteMahasiswa():
 
         action.dataIsEmpty()
 
-    action.backToMenu() 
+    action.backToMenu()

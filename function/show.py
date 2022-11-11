@@ -1,32 +1,29 @@
-# ====== FILE INI UNTUK FUNCTION SHOW MAHASISWA ====== #
-
-from tabulate import tabulate # mengambil function tabulate dari package tabulate untuk membuat table
-# mengambil semua function dari file action.py di folder function dan kasih aliasn action
+from tabulate import tabulate 
 import function.action as action
-import csv # mengambil package csv (comma separated values)
+import csv 
 
 fileData = 'assets/data.csv'
 
-def showMahasiswa():
+def showMahasiswa():    
     action.clearScreen() 
-
-    mahasiswa = [] 
+    
+    mahasiswa = []
     tbody = [] 
-
-    with open(fileData, mode='r') as csvFile:
-        csvReader = csv.DictReader(csvFile)
+    
+    with open(fileData, mode='r') as csvFile:        
+        csvReader = csv.DictReader(csvFile)        
         for row in csvReader:
             mahasiswa.append(row)
-
-    if len(mahasiswa) > 0:
+    
+    if len(mahasiswa) > 0:        
         print('---------------------------------------')
         print("List Data Mahasiswa")
         print('---------------------------------------')
-
-        for data in mahasiswa: 
-            column = data['Nama'], data['NIM'], data['Jurusan'], data['Prodi'], data['Kelas']
+        
+        for data in mahasiswa:            
+            column = data['Nama'], data['NIM'], data['Jurusan'], data['Prodi'], data['Kelas']            
             tbody.append(column)
-
+        
         print(
             tabulate(
                 tbody, 
@@ -35,11 +32,11 @@ def showMahasiswa():
                 showindex=range(1, len(tbody) + 1) 
             )
         )
-    else: 
+    else:         
         print('-- ALERT ------------------------------')
         print("Data Mahasiswa Belum Ada!")
         print('---------------------------------------')
-        
+                
         action.dataIsEmpty() 
-
+    
     action.backToMenu() 

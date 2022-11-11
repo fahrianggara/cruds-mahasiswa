@@ -1,29 +1,24 @@
-# ====== FILE INI UNTUK MAIN FUNCTION ====== #
-
-# import package
-from tabulate import tabulate # mengambil function tabulate dari package tabulate untuk membuat table
-# mengambil semua function dari file action.py di folder function dan kasih aliasn action
+from tabulate import tabulate 
+from function.show import showMahasiswa 
+from function.search import searchMahasiswa 
+from function.create import createMahasiswa 
+from function.edit import editMahasiswa 
+from function.delete import deleteMahasiswa 
 import function.action as action
-# import main
-from function.show import showMahasiswa # memanggil function showMahasiswa dari file show.py di folder function
-from function.search import searchMahasiswa # memanggil function searchMahasiswa dari file search.py di folder function
-from function.create import createMahasiswa # memanggil function createMahasiswa dari file create.py di folder function
-from function.edit import editMahasiswa # memanggil function editMahasiswa dari file edit.py di folder function
-from function.delete import deleteMahasiswa # memanggil function deleteMahasiswa dari file delete.py di folder function
 
-namaProjek = "CRUDS Mahasiswa"
+namaProjek = "CRUDS Mahasiswa UBSI"
 
 def main():
     action.clearScreen() 
-
+    
     print('---------------------------------------')
-    print(f"List Menu | {namaProjek}")
+    print(f"Daftar Menu | {namaProjek}")
     print('---------------------------------------')
 
     print(
         tabulate( 
             [
-                ["Kode", "Nama Menu"], 
+                ["Kode", "Nama Menu"],
                 ["0", "Keluar dari Menu"], 
                 ["1", "Menampilkan data Mahasiswa"], 
                 ["2", "Mencari data Mahasiswa"], 
@@ -39,6 +34,19 @@ def main():
     print('---------------------------------------')
     menu = input("Pilih Kode Menunya: ")
     print('---------------------------------------')
+    
+    if not menu.isdigit(): 
+        action.clearScreen() 
+        
+        print('-- WARNING ----------------------------')
+        input(
+            f"Harus Menggunakan Angka!\n" + 
+            "---------------------------------------\n" +
+            "\n>> Tekan ENTER untuk Mengulangi <<"
+        )
+        print('---------------------------------------')
+
+        main()
 
     if menu == '0': 
         action.clearScreen() 
@@ -55,9 +63,9 @@ def main():
         deleteMahasiswa()
     else: 
         action.clearScreen()
-
+        
         print('-- ALERT ------------------------------')
         print("Menu Tersebut Tidak Ada!")
         print('---------------------------------------')
-
+        
         action.backToMenu() 

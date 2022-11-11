@@ -1,4 +1,7 @@
-# Mengabaikan folder __pycache__ dari git repository
+# gitignore berfungsi untuk mengabaikan file path yg tertera dibawah ini-
+# -saat melakukan git commit yang akan dimasukkan ke repository
 __pycache__/
 *.py[cod]
 *$py.class
+.vscode/
+assets/data.csv
