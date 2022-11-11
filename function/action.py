@@ -3,24 +3,21 @@ import os
 from function.create import createMahasiswa
 import function.main as func
 
-
 def clearScreen():
     os.system('cls' if os.name == 'nt' else 'clear')
-
 
 def backToMenu():
     input("\n>> Tekan ENTER untuk Kembali ke Menu <<")
     func.main()
 
-
 def confCreateAgain():
     print()
-
     pilihan = input("Apakah kamu mau tambah data lagi? [Y/T]: ").upper()
     print('---------------------------------------')
 
     if pilihan == 'Y':
         createMahasiswa()
+
     elif pilihan == 'T':
         clearScreen()
 
@@ -29,6 +26,7 @@ def confCreateAgain():
         print('---------------------------------------')
 
         backToMenu()
+
     else:
         clearScreen()
 
@@ -37,7 +35,6 @@ def confCreateAgain():
         print('---------------------------------------')
 
         confCreateAgain()
-
 
 def exitMenu():
     print()
@@ -52,6 +49,7 @@ def exitMenu():
             'Kamu telah keluar dari Menu!\n' +
             '---------------------------------------'
         )
+
     elif pilihan == 'T':
         clearScreen()
 
@@ -60,6 +58,7 @@ def exitMenu():
         print('---------------------------------------')
 
         backToMenu()
+
     else:
         clearScreen()
 
@@ -69,12 +68,12 @@ def exitMenu():
 
         exitMenu()
 
-
 def dataIsEmpty():
     pilihan = input("\nHmm.. Data mahasiswa masih kosong nih. Buat? [Y/T]: ").upper()
 
     if pilihan == 'Y':
         createMahasiswa()
+
     elif pilihan == 'T':
         clearScreen()
 
@@ -83,6 +82,7 @@ def dataIsEmpty():
         print('---------------------------------------')
 
         backToMenu()
+
     else:
         clearScreen()
 
@@ -121,6 +121,7 @@ def deleteData(mahasiswa, nim, fileData):
         print('-- INFO -------------------------------')
         print(f"Data dengan NIM {nim} berhasil dihapus!")
         print('---------------------------------------')
+
     elif hapus == 'T':
         clearScreen()
 
@@ -129,6 +130,7 @@ def deleteData(mahasiswa, nim, fileData):
         print('---------------------------------------')
 
         backToMenu()
+
     else:
         clearScreen()
 
