@@ -1,4 +1,4 @@
-# ====== FILE INI UNTUK MENJALANKAN FUNCTION ====== #
+# ====== FILE INI UNTUK MENJALANKAN FUNCTION (UTAMA) ====== #
 
 # import function main dari file function.py
 from function.main import main
