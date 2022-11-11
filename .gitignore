@@ -4,4 +4,4 @@ __pycache__/
 *.py[cod]
 *$py.class
 .vscode/
-# assets/data.csv
+assets/data.csv
