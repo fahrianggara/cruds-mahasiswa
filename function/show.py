@@ -21,13 +21,13 @@ def showMahasiswa():
         print('---------------------------------------')
         
         for data in mahasiswa:            
-            column = data['Nama'], data['NIM'], data['Jurusan'], data['Prodi'], data['Kelas']            
+            column = data['Nama'], data['NIM'], data['Fakultas'], data['Prodi'], data['Kelas']            
             tbody.append(column)
         
         print(
             tabulate(
                 tbody, 
-                headers=['Nama', 'NIM', 'Jurusan', 'Prodi', 'Kelas'], 
+                headers=['Nama', 'NIM', 'Fakultas', 'Prodi', 'Kelas'], 
                 tablefmt='grid', 
                 showindex=range(1, len(tbody) + 1) 
             )

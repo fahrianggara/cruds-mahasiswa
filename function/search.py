@@ -64,11 +64,11 @@ def searchMahasiswa():
             print(
                 tabulate( 
                     [
-                        ['Nama', 'NIM', 'Jurusan', 'Prodi', 'Kelas'], 
+                        ['Nama', 'NIM', 'Fakultas', 'Prodi', 'Kelas'], 
                         [   
                             dataFound['Nama'],
                             dataFound['NIM'],
-                            dataFound['Jurusan'],
+                            dataFound['Fakultas'],
                             dataFound['Prodi'],
                             dataFound['Kelas']
                         ]

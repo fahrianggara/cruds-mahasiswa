@@ -20,7 +20,7 @@ def createMahasiswa():
             dataMahasiswa.append(row)
 
     with open(fileData, mode='a', newline='') as csvFile:
-        fieldnames = ['Nama', 'NIM', 'Jurusan', 'Prodi', 'Kelas']
+        fieldnames = ['Nama', 'NIM', 'Fakultas', 'Prodi', 'Kelas']
         csvWriter = csv.DictWriter(csvFile, fieldnames=fieldnames)
 
         print('---------------------------------------')
@@ -103,12 +103,12 @@ def createMahasiswa():
             createMahasiswa()
 
         nama = input("Masukkan Nama Mahasiswa: ")
-        jurusan = input("Masukkan Jurusan Mahasiswa: ")
+        fakultas = input("Masukkan Fakultas Mahasiswa: ")
         prodi = input("Masukkan Program Studi Mahasiswa: ")
         kelas = input("Masukkan Kelas Mahasiswa: ").upper()
         print('---------------------------------------')
 
-        if len(nama) == 0 and len(jurusan) == 0 and len(prodi) == 0 and len(kelas) == 0:
+        if len(nama) == 0 and len(fakultas) == 0 and len(prodi) == 0 and len(kelas) == 0:
             action.clearScreen()
 
             print('-- WARNING ----------------------------')
@@ -125,7 +125,7 @@ def createMahasiswa():
                 csvWriter.writerow({
                     'Nama': nama,
                     'NIM': nim,
-                    'Jurusan': jurusan,
+                    'Fakultas': fakultas,
                     'Prodi': prodi,
                     'Kelas': kelas
                 })
@@ -136,7 +136,7 @@ def createMahasiswa():
                 csvWriter.writerow({
                     'Nama': nama,
                     'NIM': nim,
-                    'Jurusan': jurusan,
+                    'Fakultas': fakultas,
                     'Prodi': prodi,
                     'Kelas': kelas
                 })

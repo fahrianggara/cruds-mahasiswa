@@ -106,14 +106,14 @@ def deleteData(mahasiswa, nim, fileData):
             i = i + 1
 
         with open(fileData, mode='w', newline='') as csvFile:
-            fieldnames = ['Nama', 'NIM', 'Jurusan', 'Prodi', 'Kelas']
+            fieldnames = ['Nama', 'NIM', 'Fakultas', 'Prodi', 'Kelas']
             writer = csv.DictWriter(csvFile, fieldnames=fieldnames)
             writer.writeheader()
             for newData in mahasiswa:
                 writer.writerow({
                     'Nama': newData['Nama'],
                     'NIM': newData['NIM'],
-                    'Jurusan': newData['Jurusan'],
+                    'Fakultas': newData['Fakultas'],
                     'Prodi': newData['Prodi'],
                     'Kelas': newData['Kelas']
                 })

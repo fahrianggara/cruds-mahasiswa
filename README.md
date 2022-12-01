@@ -10,7 +10,7 @@ Tema project kelompok 6 adalah membuat CRUDS yaitu Create, Read, Update, Delete 
 
 - Nama
 - NIM
-- Jurusan
+- Fakultas
 - Prodi
 - Kelas
 

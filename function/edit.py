@@ -23,13 +23,13 @@ def editMahasiswa():
         print('---------------------------------------')
 
         for data in mahasiswa:
-            column = data['Nama'], data['NIM'], data['Jurusan'], data['Prodi'], data['Kelas']
+            column = data['Nama'], data['NIM'], data['Fakultas'], data['Prodi'], data['Kelas']
             tbody.append(column)
 
         print(
             tabulate(
                 tbody,
-                headers=['Nama', 'NIM', 'Jurusan', 'Prodi', 'Kelas'],
+                headers=['Nama', 'NIM', 'Fakultas', 'Prodi', 'Kelas'],
                 tablefmt='grid',
                 showindex=range(1, len(mahasiswa) + 1)
             )
@@ -89,7 +89,7 @@ def editMahasiswa():
         print('-- FORM -------------------------------')
         print("NOTE: Abaikan.. jika salah satu data tidak mau diperbarui!\n")
         nama = input("Masukkan Nama baru Mahasiswa: ")
-        jurusan = input("Masukkan Jurusan baru Mahasiswa: ")
+        fakultas = input("Masukkan Fakultas baru Mahasiswa: ")
         prodi = input("Masukkan Program Studi baru Mahasiswa: ")
         kelas = input("Masukkan Kelas baru Mahasiswa: ").upper()
         print('---------------------------------------')
@@ -103,10 +103,10 @@ def editMahasiswa():
                 else:
                     mahasiswa[i]['Nama'] = nama
 
-                if len(jurusan) == 0:
-                    mahasiswa[i]['Jurusan']
+                if len(fakultas) == 0:
+                    mahasiswa[i]['Fakultas']
                 else:
-                    mahasiswa[i]['Jurusan'] = jurusan
+                    mahasiswa[i]['Fakultas'] = fakultas
 
                 if len(prodi) == 0:
                     mahasiswa[i]['Prodi']
@@ -121,7 +121,7 @@ def editMahasiswa():
             i = i + 1
 
         with open(fileData, mode='w', newline='') as csvFile:
-            fieldnames = ['Nama', 'NIM', 'Jurusan', 'Prodi', 'Kelas']
+            fieldnames = ['Nama', 'NIM', 'Fakultas', 'Prodi', 'Kelas']
             writer = csv.DictWriter(csvFile, fieldnames=fieldnames)
             writer.writeheader()
 
@@ -129,7 +129,7 @@ def editMahasiswa():
                 writer.writerow({
                     'Nama': newData['Nama'],
                     'NIM': newData['NIM'],
-                    'Jurusan': newData['Jurusan'],
+                    'Fakultas': newData['Fakultas'],
                     'Prodi': newData['Prodi'],
                     'Kelas': newData['Kelas']
                 })
