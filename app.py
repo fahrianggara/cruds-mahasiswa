@@ -1,5 +1,5 @@
-from function.main import main
+import function.menu as func
 
 if __name__ == '__main__':
     while True:
-        main()
+        func.menu()

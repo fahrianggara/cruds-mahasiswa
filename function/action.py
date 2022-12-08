@@ -1,14 +1,14 @@
 import csv
 import os
 from function.create import createMahasiswa
-import function.main as func
+import function.menu as func
 
 def clearScreen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def backToMenu():
     input("\n>> Tekan ENTER untuk Kembali ke Menu <<")
-    func.main()
+    func.menu()
 
 def confCreateAgain():
     print()

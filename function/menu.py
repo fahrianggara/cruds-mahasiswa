@@ -8,7 +8,7 @@ import function.action as action
 
 namaProjek = "CRUDS Mahasiswa UBSI"
 
-def main():
+def menu():
     action.clearScreen() 
     
     print('---------------------------------------')
@@ -46,7 +46,7 @@ def main():
         )
         print('---------------------------------------')
 
-        main()
+        menu()
 
     if menu == '0': 
         action.clearScreen() 
