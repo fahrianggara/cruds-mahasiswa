@@ -32,10 +32,10 @@ def menu():
     )
 
     print('---------------------------------------')
-    menu = input("Pilih Kode Menunya: ")
+    pilihan = input("Pilih Kode Menunya: ")
     print('---------------------------------------')
     
-    if not menu.isdigit(): 
+    if not pilihan.isdigit(): 
         action.clearScreen() 
         
         print('-- WARNING ----------------------------')
@@ -48,18 +48,18 @@ def menu():
 
         menu()
 
-    if menu == '0': 
+    if pilihan == '0': 
         action.clearScreen() 
         action.exitMenu() 
-    elif menu == '1': 
+    elif pilihan == '1': 
         showMahasiswa()
-    elif menu == '2': 
+    elif pilihan == '2': 
         searchMahasiswa()
-    elif menu == '3': 
+    elif pilihan == '3': 
         createMahasiswa()
-    elif menu == '4': 
+    elif pilihan == '4': 
         editMahasiswa()
-    elif menu == '5': 
+    elif pilihan == '5': 
         deleteMahasiswa()
     else: 
         action.clearScreen()
